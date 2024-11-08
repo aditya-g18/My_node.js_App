@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/your-repository-url'
+                git 'https://github.com/aditya-g18/My_node.js_App.git'
             }
         }
 
