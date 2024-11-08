@@ -9,8 +9,8 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Adding diagnostic steps
-                sh 'git --version'
-                sh 'echo $GIT_URL'
+                bat 'git --version'  // sh se bat me badal diya
+                bat 'echo %GIT_URL%'  // sh se bat me badal diya
 
                 // Explicitly mention branch as 'main'
                 git branch: 'main', url: 'https://github.com/aditya-g18/My_node.js_App.git'
