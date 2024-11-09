@@ -18,8 +18,14 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    // Docker container ko run karna
-                    docker.image(DOCKER_IMAGE).run('-d -p 8081:8080')
+                    // Docker container ko Windows par start command ke saath run karna
+                    if (isUnix()) {
+                        // Unix/Linux ke liye
+                        sh 'docker run -d -p 8081:8080 ${DOCKER_IMAGE}'
+                    } else {
+                        // Windows ke liye start command ka use karna
+                        bat 'start docker run -d -p 8081:8080 ${DOCKER_IMAGE}'
+                    }
                 }
             }
         }
