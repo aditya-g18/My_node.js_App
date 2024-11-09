@@ -10,6 +10,7 @@ pipeline {
             steps {
                 script {
                     // Docker image build karna
+                    echo 'Building Docker Image...'
                     sh 'docker build -t ${DOCKER_IMAGE} .'
                 }
             }
@@ -19,6 +20,7 @@ pipeline {
             steps {
                 script {
                     // Docker container ko Windows ya Unix par start command ke saath run karna
+                    echo 'Running Docker Container...'
                     if (isUnix()) {
                         // Unix/Linux ke liye
                         sh 'docker run -d -p 8081:8080 ${DOCKER_IMAGE}'
@@ -28,6 +30,18 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+        success {
+            echo 'Docker image built and container started successfully.'
+        }
+        failure {
+            echo 'Something went wrong!'
         }
     }
 }
